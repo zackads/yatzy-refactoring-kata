@@ -91,3 +91,16 @@ def self.twos( d1,  d2,  d3,  d4,  d5)
 
 After:
 
+```ruby
+def self.ones(*dice)
+    score_upper_section(1, dice)
+end
+
+# ...
+
+private
+
+def self.score_upper_section(number, dice)
+  dice.filter {|i| i == number}.sum 
+end
+```
