@@ -1,103 +1,42 @@
 class Yatzy
+  def initialize(*dice)
+    @dice = dice
+  end
+
+  def self.ones(*dice)
+    score_upper_section(1, dice)
+  end
+
+  def self.twos(*dice)
+    score_upper_section(2, dice)
+  end
+
+  def self.threes(*dice)
+    score_upper_section(3, dice)
+  end
+
+  def fours
+    self.class.score_upper_section(4, @dice)
+  end
+
+  def fives()
+    self.class.score_upper_section(5, @dice)
+  end
+
+  def sixes
+    self.class.score_upper_section(6, @dice)
+  end
+
   def self.chance(*dice)
     return dice.sum
   end
 
   def self.yatzy(dice)
-    counts = [0]*(dice.length+1)
-    for die in dice do
-      counts[die-1] += 1
+    if dice.uniq.size == 1 then
+      return 50
+    else
+      return 0
     end
-    for i in 0..counts.size do
-      if counts[i] == 5
-        return 50
-      end
-    end
-    return 0
-  end
-
-  def self.ones(*dice)
-    dice.filter {|i| i == 1}.sum 
-  end
-
-  def self.twos( d1,  d2,  d3,  d4,  d5)
-    sum = 0
-    if (d1 == 2)
-      sum += 2
-    end
-    if (d2 == 2)
-      sum += 2
-    end
-    if (d3 == 2)
-      sum += 2
-    end
-    if (d4 == 2)
-      sum += 2
-    end
-    if (d5 == 2)
-      sum += 2
-    end
-    return sum
-  end
-
-  def self.threes( d1,  d2,  d3,  d4,  d5)
-    s = 0
-    if (d1 == 3)
-      s += 3
-    end
-    if (d2 == 3)
-      s += 3
-    end
-    if (d3 == 3)
-      s += 3
-    end
-    if (d4 == 3)
-      s += 3
-    end
-    if (d5 == 3)
-      s += 3
-    end
-    return s
-  end
-
-  def initialize(d1, d2, d3, d4, _5)
-    @dice = [0]*5
-    @dice[0] = d1
-    @dice[1] = d2
-    @dice[2] = d3
-    @dice[3] = d4
-    @dice[4] = _5
-  end
-
-  def fours
-    sum = 0
-    for at in Array 0..4
-      if (@dice[at] == 4)
-        sum += 4
-      end
-    end
-    return sum
-  end
-
-  def fives()
-    s = 0
-    i = 0
-    for i in (Range.new(0, @dice.size))
-      if (@dice[i] == 5)
-        s = s + 5
-      end
-    end
-    s
-  end
-
-  def sixes
-    sum = 0
-    for at in 0..@dice.length
-      if (@dice[at] == 6)
-        sum = sum + 6
-      end
-    end
-    return sum
   end
 
   def self.score_pair( d1,  d2,  d3,  d4,  d5)
@@ -229,5 +168,11 @@ class Yatzy
     else
       return 0
     end
+  end
+
+  private
+
+  def self.score_upper_section(number, dice)
+    dice.filter {|i| i == number}.sum 
   end
 end
