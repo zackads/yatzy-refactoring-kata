@@ -59,9 +59,9 @@ def self.ones(*dice)
 end
 ```
 
-## 3.  Re-order `initialize` method
+## 3.  Re-order all methods to mimick the Yahtzee score card
 
-Code should read like a newspaper: top to bottom.  So we moved the `initialize` method to the top of the Class.
+Code should read like a newspaper: top to bottom.  So we moved the `initialize` method to the top of the Class and re-ordered the others to match a Yahtzee scorecard.
 
 ## 4.  Extract method
 
@@ -102,5 +102,19 @@ private
 
 def self.score_upper_section(number, dice)
   dice.filter {|i| i == number}.sum 
+end
+```
+
+## 5.  Extract method again (and call it using `self.class.score_upper_section`)
+
+As above (ish).
+
+## 6.  Used the good ol' splat operator again
+
+After:
+
+```ruby
+def initialize(*dice)
+    @dice = dice
 end
 ```
