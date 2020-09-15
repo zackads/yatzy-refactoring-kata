@@ -1,12 +1,6 @@
 class Yatzy
-  def self.chance(d1, d2, d3, d4, d5)
-    total = 0
-    total += d1
-    total += d2
-    total += d3
-    total += d4
-    total += d5
-    return total
+  def self.chance(*dice)
+    return dice.sum
   end
 
   def self.yatzy(dice)
@@ -22,25 +16,8 @@ class Yatzy
     return 0
   end
 
-  def self.ones( d1,  d2,  d3,  d4,  d5)
-    sum = 0
-    if (d1 == 1)
-      sum += 1
-    end
-    if (d2 == 1)
-      sum += 1
-    end
-    if (d3 == 1)
-      sum += 1
-    end
-    if (d4 == 1)
-      sum += 1
-    end
-    if (d5 == 1)
-      sum += 1
-    end
-
-    sum
+  def self.ones(*dice)
+    dice.filter {|i| i == 1}.sum 
   end
 
   def self.twos( d1,  d2,  d3,  d4,  d5)
