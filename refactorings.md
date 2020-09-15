@@ -118,3 +118,78 @@ def initialize(*dice)
     @dice = dice
 end
 ```
+
+## 7. Substitue algorithm in `yatzy`
+
+<https://sourcemaking.com/refactoring/substitute-algorithm>
+
+Before:
+
+```ruby
+def self.yatzy(dice)
+  counts = [0]*(dice.length+1)
+  for die in dice do
+    counts[die-1] += 1
+  end
+  for i in 0..counts.size do
+    if counts[i] == 5
+      return 50
+    end
+  end
+  return 0
+end
+```
+
+After:
+
+```ruby
+def self.yatzy(dice)
+  if dice.uniq.size == 1 then
+    return 50
+  else
+    return 0
+  end
+end
+```
+
+## 8. Replace magic literal in `score_pair`
+
+Before:
+
+```ruby
+def self.score_pair( d1,  d2,  d3,  d4,  d5)
+  counts = [0]*6
+  counts[d1-1] += 1
+  counts[d2-1] += 1
+  counts[d3-1] += 1
+  counts[d4-1] += 1
+  counts[d5-1] += 1
+  at = 0
+  (0...6).each do |at|
+    if (counts[6-at-1] >= 2)
+      return (6-at)*2
+    end
+  end
+  return 0
+end
+```
+
+After:
+
+```ruby
+def self.score_pair( d1,  d2,  d3,  d4,  d5)
+  counts = [0]*SIZE_OF_DIE
+  counts[d1-1] += 1
+  counts[d2-1] += 1
+  counts[d3-1] += 1
+  counts[d4-1] += 1
+  counts[d5-1] += 1
+  at = 0
+  (0...SIZE_OF_DIE).each do |at|
+    if (counts[SIZE_OF_DIE-at-1] >= 2)
+      return (SIZE_OF_DIE-at)*2
+    end
+  end
+  return 0
+end
+```
